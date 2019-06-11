@@ -46,7 +46,9 @@ namespace WpfApp1
                 if (Users[i].Login == LoginTextBox.Text && Users[i].Password == PasswordTextBox.Text)
                 {
                     MessageBox.Show($"Welcome {LoginTextBox.Text}!");
-                    WindowMenu();
+                    MenuWindow menuWindow = new MenuWindow(Users[i]);
+                    this.Close();
+                    menuWindow.Show();
                     break;
                 }
                 if (Users[i].Login == LoginTextBox.Text && Users[i].Password != PasswordTextBox.Text)
@@ -69,14 +71,6 @@ namespace WpfApp1
 
         }
 
-        public void WindowMenu()
-        {
-
-            MenuWindow menuWindow = new MenuWindow();
-            this.Close();
-            menuWindow.Show();
-
-        }
     }
 
 
@@ -86,14 +80,14 @@ namespace WpfApp1
         public string Password { get; set; }
     }
 
-    class Admin : User
+    public class Admin : User
     {
 
 
 
     }
 
-    class Realtor : User
+    public class Realtor : User
     {
 
 
