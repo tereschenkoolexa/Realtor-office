@@ -33,9 +33,14 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="5" Background="ForestGreen"></Label>
-        <Label Grid.Column="1" Grid.RowSpan="5" Background="LightGreen"></Label>
-
+        <Rectangle Grid.RowSpan="5" Grid.ColumnSpan="3">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="GreenYellow"/>
+                    <GradientStop Color="ForestGreen" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <TextBox Grid.Row="1" Grid.Column="1" Name="LoginTextBox" MouseDoubleClick="LoginTextBox_MouseDoubleClick" >Login</TextBox>
         <TextBox Grid.Row="2" Grid.Column="1" Name="PasswordTextBox" MouseDoubleClick="PasswordTextBox_MouseDoubleClick" >Password</TextBox>
         <Button Grid.Row="3" Grid.Column="1" Name="SingIn" Click="Button_Click">Sing in</Button>
