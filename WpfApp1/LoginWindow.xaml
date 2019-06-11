@@ -1,0 +1,43 @@
+﻿<Window x:Class="WpfApp1.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+       Title="Login" Height="400" Width="400"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Grid>
+        <!--<materialDesign:Card Padding="32" Margin="16">
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
+        </materialDesign:Card>-->
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="5" Background="ForestGreen"></Label>
+        <Label Grid.Column="1" Grid.RowSpan="5" Background="LightGreen"></Label>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Name="LoginTextBox" MouseDoubleClick="LoginTextBox_MouseDoubleClick" >Login</TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="PasswordTextBox" MouseDoubleClick="PasswordTextBox_MouseDoubleClick" >Password</TextBox>
+        <Button Grid.Row="3" Grid.Column="1" Name="SingIn" Click="Button_Click">Sing in</Button>
+    </Grid>
+</Window>
