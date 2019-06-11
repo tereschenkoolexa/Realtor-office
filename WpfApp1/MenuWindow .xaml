@@ -53,17 +53,26 @@
         <Label Grid.Row="3" VerticalAlignment="Center">Storey</Label>
         <Label Grid.Row="4" VerticalAlignment="Center">Price</Label>
 
-        <TextBox Grid.Row="0" Grid.Column="2"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="2"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="2"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="2"></TextBox>
-        
-        <CheckBox Grid.Row="6">Reservation</CheckBox>
+        <TextBox Name="NumberTextBox" Grid.Row="0" Grid.Column="2"></TextBox>
+        <TextBox Name="SquareTextBox" Grid.Row="1" Grid.Column="2"></TextBox>
+        <TextBox Name="CountRoomsTextBox" Grid.Row="2" Grid.Column="2"></TextBox>
+        <TextBox Name="StoreyTextBox" Grid.Row="3" Grid.Column="2"></TextBox>
+        <TextBox Name="PriceTextBox" Grid.Row="4" Grid.Column="2"></TextBox>
+
+        <CheckBox Name="ReservationCheckBox" Grid.Row="6">Reservation</CheckBox>
         <ListView Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Background="White"></ListView>
-        <Button Grid.Row="7">Save</Button>
+        <Button  Grid.Row="7" Click="Save_Click" Name="Save">Save</Button>
         <Button Grid.Row="7" Grid.Column="2">Find</Button>
         <Button Grid.Row="7" Grid.Column="4" Name="Add" Click="Add_Click">Add</Button>
-        <Button Grid.Row="7" Grid.Column="6">Sell</Button>
+        <Button Grid.Row="7" Grid.Column="6" Name="Sell" Click="Sell_Click">Sell</Button>
+        <Grid Grid.Row="6" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="Previous" Click="Previous_Click">-</Button>
+            <Button Name="Next" Grid.Column="2" Click="Next_Click">+</Button>
+        </Grid>
     </Grid>
 </Window>
