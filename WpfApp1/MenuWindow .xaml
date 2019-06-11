@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Menu" Height="400" Width="800">
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1"></TextBox>
+
     </Grid>
 </Window>
