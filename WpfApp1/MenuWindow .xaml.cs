@@ -155,6 +155,14 @@ namespace WpfApp1
                 Save.IsEnabled = false;
                 Add.IsEnabled = false;
                 Sell.IsEnabled = true;
+                Sell.Content = "Sell";
+            }
+            if (u.GetType().ToString() == "WpfApp1.Shopper")
+            {
+                Save.IsEnabled = false;
+                Add.IsEnabled = false;
+                Sell.IsEnabled = true;
+                Sell.Content = "Buy";
             }
         }
 
