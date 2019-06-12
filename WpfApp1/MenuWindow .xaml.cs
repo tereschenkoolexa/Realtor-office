@@ -38,17 +38,23 @@ namespace WpfApp1
         {
 
             InitializeComponent();
+
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Apartment>));
             using (Stream reader = new FileStream("Apartment.xml", FileMode.Open))
             {
 
-               apartments = (ObservableCollection<Apartment>)serializer.Deserialize(reader);
+                apartments = (ObservableCollection<Apartment>)serializer.Deserialize(reader);
             }
             User_verification(user);
             Checking_the_apartment();
             ShowList();
 
+            ListApartaments.ItemsSource = apartments;
             
+            //for(int i=0;i<apartments.Count;i++)
+            //{
+            //    ListApartaments.Items.Add(apartments[i]);
+            //}
 
         }
 
@@ -67,25 +73,19 @@ namespace WpfApp1
             ReservationCheckBox.IsChecked = apartments[index].Reservation;
         }
 
-        public void Serializer()
-        {
-            XmlSerializer xml = new XmlSerializer(typeof(ObservableCollection<Apartment>));
-            using (var fStream = new FileStream("Apartment.xml", FileMode.Create, FileAccess.Write, FileShare.None))
-            {
-                xml.Serialize(fStream, apartments);
-            }
-        }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
 
-            apartments.Add(new Apartment {
+
+            apartments.Add(new Apartment
+            {
                 Number = int.Parse(NumberTextBox.Text),
                 Square = float.Parse(SquareTextBox.Text),
                 CountRooms = int.Parse(CountRoomsTextBox.Text),
                 Storey = int.Parse(StoreyTextBox.Text),
                 Price = decimal.Parse(PriceTextBox.Text),
-                Reservation = ReservationCheckBox.IsChecked.Value,
+                Reservation = false,
                 SoldOut = false
             });
 
@@ -149,6 +149,7 @@ namespace WpfApp1
                 Save.IsEnabled = true;
                 Add.IsEnabled = true;
                 Sell.IsEnabled = false;
+                ReservationCheckBox.IsEnabled = false;
             }
             if (u.GetType().ToString() == "WpfApp1.Realtor")
             {
@@ -164,6 +165,30 @@ namespace WpfApp1
                 Sell.IsEnabled = true;
                 Sell.Content = "Buy";
             }
+        }
+
+        private void Find_Click(object sender, RoutedEventArgs e)
+        {
+
+            apartments[index].SoldOut = true; Checking_the_apartment();
+
+        }
+
+        public void Serializer()
+        {
+            XmlSerializer xml = new XmlSerializer(typeof(ObservableCollection<Apartment>));
+            using (var fStream = new FileStream("Apartment.xml", FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                xml.Serialize(fStream, apartments);
+            }
+        }
+
+        public void ListApartaments_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+
+            index=ListApartaments.SelectedIndex;
+            ShowList();
+
         }
 
     }

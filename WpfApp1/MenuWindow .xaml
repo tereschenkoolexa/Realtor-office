@@ -36,9 +36,9 @@
             <ColumnDefinition Width="0.02*"></ColumnDefinition>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
             <ColumnDefinition Width="0.02*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="9">
+        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="10">
             <Rectangle.Fill>
                 <LinearGradientBrush>
                     <GradientStop Color="GreenYellow"/>
@@ -60,11 +60,28 @@
         <TextBox Name="PriceTextBox" Grid.Row="4" Grid.Column="2"></TextBox>
 
         <CheckBox Name="ReservationCheckBox" Grid.Row="6">Reservation</CheckBox>
-        <ListView Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Background="White" Name="ListApartaments"></ListView>
+        <ListView SelectionMode="Single" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="5" Name="ListApartaments" MouseDoubleClick="ListApartaments_MouseDoubleClick">
+
+            <ListView.View>
+
+                <GridView>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Number}" Header="Number"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Square}" Header="Square"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding CountRooms}" Header="Count rooms"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Storey}" Header="Storey"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Reservation}" Header="Reservation"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding SoldOut}" Header="Sold out"/>
+
+
+                </GridView></ListView.View></ListView>
         <Button  Grid.Row="7" Click="Save_Click" Name="Save">Save</Button>
-        <Button Grid.Row="7" Grid.Column="2" Name="Find">Find</Button>
+        <Button Grid.Row="7" Grid.Column="2" Name="Find" Click="Find_Click">Find</Button>
         <Button Grid.Row="7" Grid.Column="4" Name="Add" Click="Add_Click">Add</Button>
         <Button Grid.Row="7" Grid.Column="6" Name="Sell" Click="Sell_Click">Sell</Button>
+        <Button Grid.Row="7" Grid.Column="8" Name="Statistics" >Statistics</Button>
+        
         <Grid Grid.Row="6" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
