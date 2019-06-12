@@ -1,0 +1,60 @@
+﻿<Window x:Class="WpfApp1.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Window2" Height="450" Width="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.RowSpan="11" Grid.ColumnSpan="12">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="GreenYellow"/>
+                    <GradientStop Color="ForestGreen" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Label VerticalAlignment="Center" Grid.Row="0">Room 1</Label>
+        <Label VerticalAlignment="Center" Grid.Row="1">Room 2</Label>
+        <Label VerticalAlignment="Center" Grid.Row="2">Room 3</Label>
+        <Label VerticalAlignment="Center" Grid.Row="3">Room 4 and more</Label>
+
+        <Label VerticalAlignment="Center" Grid.Row="5">500K</Label>
+        <Label VerticalAlignment="Center" Grid.Row="6">500K-2KK</Label>
+        <Label VerticalAlignment="Center" Grid.Row="7">2KK-4KK</Label>
+        <Label VerticalAlignment="Center" Grid.Row="8">4K</Label>
+
+        <TextBlock Name="TextBlockRoom1" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
+        <TextBlock Name="TextBlockRoom2" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBlock Name="TextBlockRoom3" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
+        <TextBlock Name="TextBlockRoom4" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1"></TextBlock>
+
+        <TextBlock Name="TextBlockP500" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1"></TextBlock>
+        <TextBlock Name="TextBlockP500_2" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1"></TextBlock>
+        <TextBlock Name="TextBlockP2_4" VerticalAlignment="Center" Grid.Row="7" Grid.Column="1"></TextBlock>
+        <TextBlock Name="TextBlockP4" VerticalAlignment="Center" Grid.Row="8" Grid.Column="1"></TextBlock>
+
+        <Label VerticalAlignment="Center" Grid.Row="10">Total sum</Label>
+        <TextBlock Name="TotalSum" VerticalAlignment="Center" Grid.Row="10" Grid.Column="1"></TextBlock>
+        
+    </Grid>
+</Window>

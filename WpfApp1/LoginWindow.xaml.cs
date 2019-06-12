@@ -39,9 +39,9 @@ namespace WpfApp1
         List<User> Users = new List<User> { new Admin() { Login = "Admin", Password = "K3K4"},
                                             new Realtor() { Login = "Realtor Vadim", Password = "11R5"},
                                             new Realtor() { Login = "Realtor Ivan", Password = "6H70"},
-                                            new Shopper() { Login = "Denis Veremuch", Password = "17B8"},
-                                            new Shopper() { Login = "Vitaliu Peleh", Password = "0LI0"},
-                                            new Shopper() { Login = "Oleh Knyaz", Password = "42RT"}};
+                                            new Shopper() { Login = "Denis Veremuch", Password = "17B8",Number={ -1 } },
+                                            new Shopper() { Login = "Vitaliu Peleh", Password = "0LI0",Number={ -1 }},
+                                            new Shopper() { Login = "Oleh Knyaz", Password = "42RT",Number={ -1 }}};
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -80,8 +80,10 @@ namespace WpfApp1
 
     public class User
     {
+        List<int> _number;
         public string Login { get; set; }
         public string Password { get; set; }
+        public List<int> Number { get { return _number; } set { _number = value; } }
     }
 
     public class Admin : User { }

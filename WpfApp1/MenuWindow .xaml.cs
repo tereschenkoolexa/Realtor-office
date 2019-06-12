@@ -33,10 +33,12 @@ namespace WpfApp1
     public partial class MenuWindow : Window
     {
     int index = 0;
+        User Suser = new User();
         ObservableCollection<Apartment> apartments = new ObservableCollection<Apartment>();
         public MenuWindow(User user)
         {
-
+            Suser = user;
+            
             InitializeComponent();
 
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Apartment>));
@@ -71,6 +73,16 @@ namespace WpfApp1
             StoreyTextBox.Text = apartments[index].Storey.ToString();
             PriceTextBox.Text = apartments[index].Price.ToString();
             ReservationCheckBox.IsChecked = apartments[index].Reservation;
+            if (Suser.GetType().ToString() == "WpfApp1.Shopper")
+                for (int i = 0; i < Suser.Number.Count; i++)
+            {
+                if (apartments[index].Number != Suser.Number[i] && ReservationCheckBox.IsChecked==true)
+                {
+                    ReservationCheckBox.IsEnabled = false;
+                }
+
+            }
+
         }
 
 
@@ -102,7 +114,9 @@ namespace WpfApp1
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            ObservableCollection<Apartment> nullapartments = new ObservableCollection<Apartment>();
             //ListApartaments.Items.Clear();
+            ListApartaments.ItemsSource = nullapartments;
             ListApartaments.ItemsSource = apartments;
 
             apartments[index].Number = int.Parse(NumberTextBox.Text);
@@ -116,10 +130,28 @@ namespace WpfApp1
 
         private void Sell_Click(object sender, RoutedEventArgs e)
         {
-
-            apartments[index].SoldOut = true; Checking_the_apartment();
+            if (Suser.GetType().ToString() == "WpfApp1.Realtor")
+            {
+                apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);
+            }
+            else
+            {
+                for (int i = 0; i < Suser.Number.Count; i++)
+                {
+                    if (apartments[index].Number == Suser.Number[i])
+                    {
+                        apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);break;
+                    }
+                    
+                }
+                MessageBox.Show("lol");
+            }
 
         }
+
+        
+
+
         public void foo(bool TF)
         {
 
@@ -128,7 +160,6 @@ namespace WpfApp1
             CountRoomsTextBox.IsEnabled = TF;
             StoreyTextBox.IsEnabled = TF;
             PriceTextBox.IsEnabled = TF;
-            ReservationCheckBox.IsEnabled = TF;
 
         }
         public void Checking_the_apartment()
@@ -173,8 +204,34 @@ namespace WpfApp1
         private void Find_Click(object sender, RoutedEventArgs e)
         {
 
-            apartments[index].SoldOut = true; Checking_the_apartment();
+            ObservableCollection<Apartment> apartmentsList = new ObservableCollection<Apartment>();
+            for (int i = 0; i < apartments.Count; i++)
+            {
 
+                    if (ReservedRadioButton.IsChecked == true && 
+                        apartments[i].Reservation == true &&
+                        apartments[i].SoldOut == false)
+                    {
+                        apartmentsList.Add(apartments[i]);
+                    }
+                    if (NotBookedRadioButton.IsChecked == true &&
+                        apartments[i].Reservation == false &&
+                        apartments[i].SoldOut == false)
+                    {
+                        apartmentsList.Add(apartments[i]);
+                    }
+                    if (BoughtRadioButton.IsChecked == true &&
+                        apartments[i].SoldOut == true)
+                    {
+                        apartmentsList.Add(apartments[i]);
+                    }
+
+
+            }
+            if (AllRadioButton.IsChecked == true)
+                ListApartaments.ItemsSource = apartments;
+            else
+                ListApartaments.ItemsSource = apartmentsList;
         }
 
         public void Serializer()
@@ -192,6 +249,12 @@ namespace WpfApp1
             index=ListApartaments.SelectedIndex;
             ShowList();
 
+        }
+
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            StatisticsWindow statisticsWindow = new StatisticsWindow(apartments);
+            statisticsWindow.Show();
         }
 
     }
