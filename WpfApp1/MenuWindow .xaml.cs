@@ -48,6 +48,8 @@ namespace WpfApp1
             Checking_the_apartment();
             ShowList();
 
+            
+
         }
 
         public void ShowList()
@@ -141,8 +143,20 @@ namespace WpfApp1
         public void User_verification(User u)
         {
 
-            string s = u.GetType().ToString();
-            MessageBox.Show(s);
+
+            if(u.GetType().ToString()=="WpfApp1.Admin")
+            {
+                Save.IsEnabled = true;
+                Add.IsEnabled = true;
+                Sell.IsEnabled = false;
+            }
+            if (u.GetType().ToString() == "WpfApp1.Realtor")
+            {
+                Save.IsEnabled = false;
+                Add.IsEnabled = false;
+                Sell.IsEnabled = true;
+            }
         }
+
     }
 }

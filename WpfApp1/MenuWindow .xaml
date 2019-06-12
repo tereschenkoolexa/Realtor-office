@@ -60,9 +60,9 @@
         <TextBox Name="PriceTextBox" Grid.Row="4" Grid.Column="2"></TextBox>
 
         <CheckBox Name="ReservationCheckBox" Grid.Row="6">Reservation</CheckBox>
-        <ListView Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Background="White"></ListView>
+        <ListView Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Background="White" Name="ListApartaments"></ListView>
         <Button  Grid.Row="7" Click="Save_Click" Name="Save">Save</Button>
-        <Button Grid.Row="7" Grid.Column="2">Find</Button>
+        <Button Grid.Row="7" Grid.Column="2" Name="Find">Find</Button>
         <Button Grid.Row="7" Grid.Column="4" Name="Add" Click="Add_Click">Add</Button>
         <Button Grid.Row="7" Grid.Column="6" Name="Sell" Click="Sell_Click">Sell</Button>
         <Grid Grid.Row="6" Grid.Column="2">
