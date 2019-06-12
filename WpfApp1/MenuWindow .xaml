@@ -59,7 +59,7 @@
         <TextBox Name="StoreyTextBox" Grid.Row="3" Grid.Column="2"></TextBox>
         <TextBox Name="PriceTextBox" Grid.Row="4" Grid.Column="2"></TextBox>
 
-        <CheckBox Name="ReservationCheckBox" Grid.Row="6">Reservation</CheckBox>
+        <CheckBox Name="ReservationCheckBox"  Grid.Row="6">Reservation</CheckBox>
         <ListView SelectionMode="Single" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="5" Name="ListApartaments" MouseDoubleClick="ListApartaments_MouseDoubleClick">
 
             <ListView.View>

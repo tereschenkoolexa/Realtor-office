@@ -102,6 +102,9 @@ namespace WpfApp1
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            //ListApartaments.Items.Clear();
+            ListApartaments.ItemsSource = apartments;
+
             apartments[index].Number = int.Parse(NumberTextBox.Text);
             apartments[index].Square = float.Parse(SquareTextBox.Text);
             apartments[index].CountRooms = int.Parse(CountRoomsTextBox.Text);
