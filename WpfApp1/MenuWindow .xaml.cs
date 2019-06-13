@@ -195,6 +195,7 @@ namespace WpfApp1
         }
         public void Checking_the_apartment()
         {
+            
             if (apartments[index].SoldOut == true)
             {
                 foo(false);
@@ -235,9 +236,74 @@ namespace WpfApp1
             }
         }
 
-        public void Find_Audit()
+        public Apartment Find_Audit(Apartment apartment)
         {
+            Apartment a = new Apartment();
+            if(CountRoomsTextBox.Text!="" &&
+                PriceTextBox.Text != "" &&
+                SquareTextBox.Text != "")
+            {
+                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
+                    && apartment.Price.ToString() == PriceTextBox.Text
+                     && apartment.Square.ToString() == SquareTextBox.Text)
+                    a = apartment;
+            }
+            if(PriceTextBox.Text != "" &&
+                SquareTextBox.Text != "" &&
+                CountRoomsTextBox.Text == "")
+            {
 
+                if ( apartment.Price.ToString() == PriceTextBox.Text
+                     && apartment.Square.ToString() == SquareTextBox.Text)
+                    a = apartment;
+
+            }
+            if (PriceTextBox.Text != "" &&
+                 CountRoomsTextBox.Text != "" &&
+                SquareTextBox.Text == "")
+            {
+                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
+                    && apartment.Price.ToString() == PriceTextBox.Text)
+                    a = apartment;
+            }
+            if (SquareTextBox.Text != "" &&
+                 CountRoomsTextBox.Text != "" &&
+                PriceTextBox.Text == "")
+            {
+
+                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
+                    && apartment.Square.ToString() == SquareTextBox.Text)
+                    a = apartment;
+
+            }
+            if (SquareTextBox.Text != "" &&
+                PriceTextBox.Text == "" &&
+                 CountRoomsTextBox.Text == "")
+            {
+
+                if ( apartment.Square.ToString() == SquareTextBox.Text)
+                    a = apartment;
+
+            }
+            if(CountRoomsTextBox.Text != "" &&
+                PriceTextBox.Text == "" &&
+                 CountRoomsTextBox.Text == "")
+            {
+
+                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text)
+                    a = apartment;
+
+            }
+            if(SquareTextBox.Text != "" &&
+                PriceTextBox.Text == "" &&
+                 CountRoomsTextBox.Text == "")
+            {
+
+                if ( apartment.Square.ToString() == SquareTextBox.Text)
+                    a = apartment;
+
+            }
+            return a;
         }
 
         private void Find_Click(object sender, RoutedEventArgs e)
@@ -246,24 +312,35 @@ namespace WpfApp1
             ObservableCollection<Apartment> apartmentsList = new ObservableCollection<Apartment>();
             for (int i = 0; i < apartments.Count; i++)
             {
-
+                Apartment a = new Apartment();
                     if (ReservedRadioButton.IsChecked == true && 
                         apartments[i].Reservation == true &&
                         apartments[i].SoldOut == false)
                     {
-                        apartmentsList.Add(apartments[i]);
+                    
+                        a=Find_Audit(apartments[i]);
+                    if(a!=null)
+                        apartmentsList.Add(a);
                     }
                     if (NotBookedRadioButton.IsChecked == true &&
                         apartments[i].Reservation == false &&
                         apartments[i].SoldOut == false)
                     {
+                        a = Find_Audit(apartments[i]);
+                    if (a != null)
                         apartmentsList.Add(apartments[i]);
                     }
                     if (BoughtRadioButton.IsChecked == true &&
                         apartments[i].SoldOut == true)
                     {
+                        a = Find_Audit(apartments[i]);
+                    if (a != null)
                         apartmentsList.Add(apartments[i]);
                     }
+                    else
+                        a = Find_Audit(apartments[i]);
+                    if (a != null)
+                        apartmentsList.Add(apartments[i]);
 
 
             }
