@@ -195,12 +195,16 @@ namespace WpfApp1
         }
         public void Checking_the_apartment()
         {
-            
-            if (apartments[index].SoldOut == true)
+            if(Suser.GetType().ToString() == "WpfApp1.Admin"
+                && apartments[index].SoldOut==true)
+                { foo(false); }
+            if (Suser.GetType().ToString() == "WpfApp1.Realtor" ||
+                Suser.GetType().ToString() == "WpfApp1.Shopper")
             {
                 foo(false);
             }
-            else
+            if (Suser.GetType().ToString() == "WpfApp1.Admin"
+                && apartments[index].SoldOut != true)
             {
                 foo(true);
             }
@@ -363,6 +367,7 @@ namespace WpfApp1
         {
 
             index=ListApartaments.SelectedIndex;
+            Checking_the_apartment();
             ShowList();
 
         }
