@@ -28,6 +28,7 @@ namespace WpfApp1
         public decimal Price { get; set; }
         public bool Reservation { get; set; }
         public bool SoldOut { get; set; }
+        public string Code { get; set; }
 
     }
     public partial class MenuWindow : Window
@@ -49,9 +50,9 @@ namespace WpfApp1
             }
             User_verification(user);
             Checking_the_apartment();
-            ShowList();
 
             ListApartaments.ItemsSource = apartments;
+            ShowList();
             
             //for(int i=0;i<apartments.Count;i++)
             //{
@@ -74,17 +75,46 @@ namespace WpfApp1
             PriceTextBox.Text = apartments[index].Price.ToString();
             ReservationCheckBox.IsChecked = apartments[index].Reservation;
             if (Suser.GetType().ToString() == "WpfApp1.Shopper")
-                for (int i = 0; i < Suser.Number.Count; i++)
             {
-                if (apartments[index].Number != Suser.Number[i] && ReservationCheckBox.IsChecked==true)
+                if (apartments[index].Code == Suser.Code && ReservationCheckBox.IsChecked == true
+                    && apartments[index].SoldOut == true)
                 {
-                    ReservationCheckBox.IsEnabled = false;
-                }
 
+                    Sell.IsEnabled = false;
+
+                }
+                else
+                {
+                    if (apartments[index].Code != Suser.Code && ReservationCheckBox.IsChecked == false)
+                    {
+                        ReservationCheckBox.IsEnabled = true;
+                        Sell.IsEnabled = false;
+                    }
+                    if (apartments[index].Code == Suser.Code && ReservationCheckBox.IsChecked == true)
+                    {
+                        ReservationCheckBox.IsEnabled = true;
+                        Sell.IsEnabled = true;
+                    }
+                    if (apartments[index].Code != Suser.Code && ReservationCheckBox.IsChecked == true)
+                    {
+                        ReservationCheckBox.IsEnabled = false;
+                        Sell.IsEnabled = false;
+                    }
+                }
             }
 
         }
+        int i = 0;
+        private void CheckedRB(object sender, RoutedEventArgs e)
+        {
 
+            if (i < 1)
+                i++;
+            else
+                apartments[index].Code = Suser.Code; Checking_the_apartment(); Save_Click(sender, e);
+            //MessageBox.Show("llll");
+            
+        }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
@@ -98,7 +128,8 @@ namespace WpfApp1
                 Storey = int.Parse(StoreyTextBox.Text),
                 Price = decimal.Parse(PriceTextBox.Text),
                 Reservation = false,
-                SoldOut = false
+                SoldOut = false,
+                Code = "0"
             });
 
             Serializer();
@@ -130,22 +161,22 @@ namespace WpfApp1
 
         private void Sell_Click(object sender, RoutedEventArgs e)
         {
-            if (Suser.GetType().ToString() == "WpfApp1.Realtor")
-            {
-                apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);
-            }
-            else
-            {
-                for (int i = 0; i < Suser.Number.Count; i++)
+
+                if (Suser.GetType().ToString() == "WpfApp1.Realtor")
                 {
-                    if (apartments[index].Number == Suser.Number[i])
-                    {
-                        apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);break;
-                    }
-                    
+                    apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);
                 }
-                MessageBox.Show("lol");
-            }
+                else
+                {
+
+                    if (apartments[index].Code == Suser.Code && ReservationCheckBox.IsChecked == true)
+                    {
+                        apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);
+                    Sell.IsEnabled = false;
+                    }
+
+                    MessageBox.Show("lol");
+                }
 
         }
 
@@ -183,6 +214,7 @@ namespace WpfApp1
                 Save.IsEnabled = true;
                 Add.IsEnabled = true;
                 Sell.IsEnabled = false;
+                Statistics.IsEnabled = true;
                 ReservationCheckBox.IsEnabled = false;
             }
             if (u.GetType().ToString() == "WpfApp1.Realtor")
@@ -190,6 +222,7 @@ namespace WpfApp1
                 Save.IsEnabled = false;
                 Add.IsEnabled = false;
                 Sell.IsEnabled = true;
+                Statistics.IsEnabled = true;
                 Sell.Content = "Sell";
             }
             if (u.GetType().ToString() == "WpfApp1.Shopper")
@@ -197,8 +230,14 @@ namespace WpfApp1
                 Save.IsEnabled = false;
                 Add.IsEnabled = false;
                 Sell.IsEnabled = true;
+                Statistics.IsEnabled = false;
                 Sell.Content = "Buy";
             }
+        }
+
+        public void Find_Audit()
+        {
+
         }
 
         private void Find_Click(object sender, RoutedEventArgs e)
