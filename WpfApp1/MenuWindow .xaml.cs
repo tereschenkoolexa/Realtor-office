@@ -247,6 +247,7 @@ namespace WpfApp1
                 PriceTextBox.Text != "" &&
                 SquareTextBox.Text != "")
             {
+                    MessageBox.Show(a.Square.ToString());
                 if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
                     && apartment.Price.ToString() == PriceTextBox.Text
                      && apartment.Square.ToString() == SquareTextBox.Text)
@@ -262,6 +263,7 @@ namespace WpfApp1
                     a = apartment;
 
             }
+
             if (PriceTextBox.Text != "" &&
                  CountRoomsTextBox.Text != "" &&
                 SquareTextBox.Text == "")
@@ -270,6 +272,7 @@ namespace WpfApp1
                     && apartment.Price.ToString() == PriceTextBox.Text)
                     a = apartment;
             }
+
             if (SquareTextBox.Text != "" &&
                  CountRoomsTextBox.Text != "" &&
                 PriceTextBox.Text == "")
@@ -280,6 +283,7 @@ namespace WpfApp1
                     a = apartment;
 
             }
+
             if (SquareTextBox.Text != "" &&
                 PriceTextBox.Text == "" &&
                  CountRoomsTextBox.Text == "")
@@ -289,16 +293,18 @@ namespace WpfApp1
                     a = apartment;
 
             }
-            if(CountRoomsTextBox.Text != "" &&
-                PriceTextBox.Text == "" &&
-                 CountRoomsTextBox.Text == "")
+
+            if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text &&
+                PriceTextBox.Text == " " &&
+                 CountRoomsTextBox.Text == " ")
             {
 
                 if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text)
                     a = apartment;
 
             }
-            if(SquareTextBox.Text != "" &&
+
+            if (SquareTextBox.Text != "" &&
                 PriceTextBox.Text == "" &&
                  CountRoomsTextBox.Text == "")
             {
@@ -321,30 +327,34 @@ namespace WpfApp1
                         apartments[i].Reservation == true &&
                         apartments[i].SoldOut == false)
                     {
-                    
-                        a=Find_Audit(apartments[i]);
-                    if(a!=null)
-                        apartmentsList.Add(a);
-                    }
-                    if (NotBookedRadioButton.IsChecked == true &&
+
+
+
+
+
+                    //a = Find_Audit(apartments[i]);
+                    a = apartments[i];
+                    apartmentsList.Add(a);
+                }
+
+
+
+                if (NotBookedRadioButton.IsChecked == true &&
                         apartments[i].Reservation == false &&
                         apartments[i].SoldOut == false)
                     {
-                        a = Find_Audit(apartments[i]);
-                    if (a != null)
-                        apartmentsList.Add(apartments[i]);
+                        //a = Find_Audit(apartments[i]);
+                    a = apartments[i];
+                    apartmentsList.Add(apartments[i]);
                     }
                     if (BoughtRadioButton.IsChecked == true &&
                         apartments[i].SoldOut == true)
                     {
-                        a = Find_Audit(apartments[i]);
-                    if (a != null)
-                        apartmentsList.Add(apartments[i]);
+                    //    a = Find_Audit(apartments[i]);
+                    a = apartments[i];
+                    apartmentsList.Add(apartments[i]);
                     }
-                    else
-                        a = Find_Audit(apartments[i]);
-                    if (a != null)
-                        apartmentsList.Add(apartments[i]);
+                
 
 
             }
