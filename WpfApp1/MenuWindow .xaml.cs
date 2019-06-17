@@ -14,23 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
+using _Class;
 
 namespace WpfApp1
 {
-    [Serializable]
-    public class Apartment
-    {
-
-        public int Number { get; set; }
-        public float Square { get; set; }
-        public int CountRooms { get; set; }
-        public int Storey { get; set; }
-        public decimal Price { get; set; }
-        public bool Reservation { get; set; }
-        public bool SoldOut { get; set; }
-        public string Code { get; set; }
-
-    }
+    
 
     public partial class MenuWindow : Window
     {
@@ -39,6 +27,7 @@ namespace WpfApp1
         User Subsidiary_user = new User();
 
         ObservableCollection<Apartment> apartments = new ObservableCollection<Apartment>();
+        ObservableCollection<Apartment> Rezerv_apartments = new ObservableCollection<Apartment>();
 
         public MenuWindow(User user)
         {
@@ -55,17 +44,18 @@ namespace WpfApp1
                     apartments = (ObservableCollection<Apartment>)serializer.Deserialize(reader);
                 }
 
-            Checking_the_apartment();
-            User_verification(user);
+                Checking_the_apartment();
+                User_verification(user);
 
-            ListApartaments.ItemsSource = apartments;
-            ShowList();
-            
-            //for(int i=0;i<apartments.Count;i++)
-            //{
-            //    ListApartaments.Items.Add(apartments[i]);
-            //}
+                ListApartaments.ItemsSource = apartments;
+                ShowList();
+
+                for (int i = 0; i < apartments.Count; i++)
+                {
+                    Rezerv_apartments.Add(apartments[i]);
+                }
             }
+            
         }
 
         public void ShowList()
@@ -81,33 +71,37 @@ namespace WpfApp1
             StoreyTextBox.Text = apartments[index].Storey.ToString();
             PriceTextBox.Text = apartments[index].Price.ToString();
             ReservationCheckBox.IsChecked = apartments[index].Reservation;
-            if (Subsidiary_user.GetType().ToString() == "WpfApp1.Shopper")
+            if (Subsidiary_user.GetType().ToString() == "_Class.Shopper")
             {
-                if (apartments[index].Code == Subsidiary_user.Code && ReservationCheckBox.IsChecked == true
+                if (apartments[index].Code == Subsidiary_user.Code
+                    && ReservationCheckBox.IsChecked == true
                     && apartments[index].SoldOut == true)
                 {
                     Sell.IsEnabled = false;
                 }
                 else
                 {
-                    if (apartments[index].Code != Subsidiary_user.Code && ReservationCheckBox.IsChecked == false)
+                    if (apartments[index].Code != Subsidiary_user.Code
+                        && ReservationCheckBox.IsChecked == false)
                     {
                         ReservationCheckBox.IsEnabled = true;
                         Sell.IsEnabled = false;
                     }
-                    if (apartments[index].Code == Subsidiary_user.Code && ReservationCheckBox.IsChecked == true)
+                    if (apartments[index].Code == Subsidiary_user.Code 
+                        && ReservationCheckBox.IsChecked == true)
                     {
                         ReservationCheckBox.IsEnabled = true;
                         Sell.IsEnabled = true;
                     }
-                    if (apartments[index].Code != Subsidiary_user.Code && ReservationCheckBox.IsChecked == true)
+                    if (apartments[index].Code != Subsidiary_user.Code 
+                        && ReservationCheckBox.IsChecked == true)
                     {
                         ReservationCheckBox.IsEnabled = false;
                         Sell.IsEnabled = false;
                     }
                 }
             }
-            if (Subsidiary_user.GetType().ToString() == "WpfApp1.Realtor")
+            if (Subsidiary_user.GetType().ToString() == "_Class.Realtor")
             {
                 if (apartments[index].SoldOut == true)
                 {
@@ -153,10 +147,18 @@ namespace WpfApp1
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
-        { index++;ShowList(); Checking_the_apartment(); }
+        {
+            index++;
+            ShowList();
+            Checking_the_apartment();
+        }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
-        { index--; ShowList(); Checking_the_apartment(); }
+        {
+            index--;
+            ShowList();
+            Checking_the_apartment();
+        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -177,16 +179,20 @@ namespace WpfApp1
         private void Sell_Click(object sender, RoutedEventArgs e)
         {
 
-                if (Subsidiary_user.GetType().ToString() == "WpfApp1.Realtor")
+                if (Subsidiary_user.GetType().ToString() == "_Class.Realtor")
                 {
-                    apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);
+                    apartments[index].SoldOut = true;
+                    Checking_the_apartment();
+                    Save_Click(sender, e);
                 }
                 else
                 {
                     if (apartments[index].Code == Subsidiary_user.Code && ReservationCheckBox.IsChecked == true)
                     {
-                        apartments[index].SoldOut = true; Checking_the_apartment(); Save_Click(sender, e);
-                    Sell.IsEnabled = false;
+                        apartments[index].SoldOut = true;
+                        Checking_the_apartment();
+                        Save_Click(sender, e);
+                        Sell.IsEnabled = false;
                     }
 
                     MessageBox.Show("You bought an apartment "+apartments[index].Number.ToString());
@@ -204,26 +210,28 @@ namespace WpfApp1
 
         public void Checking_the_apartment()
         {
-            if (Subsidiary_user.GetType().ToString() == "WpfApp1.Realtor" ||
-                Subsidiary_user.GetType().ToString() == "WpfApp1.Shopper")
+            if (Subsidiary_user.GetType().ToString() == "_Class.Realtor" ||
+                Subsidiary_user.GetType().ToString() == "_Class.Shopper")
             {
                 Change_bool(false);
             }
-            if (Subsidiary_user.GetType().ToString() == "WpfApp1.Admin"
+            if (Subsidiary_user.GetType().ToString() == "_Class.Admin"
                 && apartments[index].SoldOut != true)
             {
                 Change_bool(true);
             }
-            if (Subsidiary_user.GetType().ToString() == "WpfApp1.Admin"
+            if (Subsidiary_user.GetType().ToString() == "_Class.Admin"
                 && apartments[index].SoldOut == true || apartments[index].Reservation == true)
-            { Change_bool(false); }
+            {
+                Change_bool(false);
+            }
         }
 
         public void User_verification(User u)
         {
 
 
-            if(u.GetType().ToString()=="WpfApp1.Admin")
+            if(u.GetType().ToString()=="_Class.Admin")
             {
                 Save.IsEnabled = true;
                 Add.IsEnabled = true;
@@ -231,7 +239,7 @@ namespace WpfApp1
                 Statistics.IsEnabled = true;
                 ReservationCheckBox.IsEnabled = false;
             }
-            if (u.GetType().ToString() == "WpfApp1.Realtor")
+            if (u.GetType().ToString() == "_Class.Realtor")
             {
                 Save.IsEnabled = false;
                 Add.IsEnabled = false;
@@ -239,7 +247,7 @@ namespace WpfApp1
                 Statistics.IsEnabled = true;
                 Sell.Content = "Sell";
             }
-            if (u.GetType().ToString() == "WpfApp1.Shopper")
+            if (u.GetType().ToString() == "_Class.Shopper")
             {
                 Save.IsEnabled = false;
                 Add.IsEnabled = false;
@@ -249,121 +257,49 @@ namespace WpfApp1
             }
         }
 
-        /*
-        public  Apartment Find_Audit(Apartment apartment)
-        {
-            
-
-
-            Apartment apartment_FindAudit = new Apartment();
-            if(CountRoomsTextBox.Text!="" &&
-                PriceTextBox.Text != "" &&
-                SquareTextBox.Text != "")
-            {
-               
-                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
-                    && apartment.Price.ToString() == PriceTextBox.Text
-                     && apartment.Square.ToString() == SquareTextBox.Text)
-                    apartment_FindAudit = apartment;
-            }
-
-            if(PriceTextBox.Text != "" &&
-                SquareTextBox.Text != "" &&
-                CountRoomsTextBox.Text == "")
-            {
-
-                if ( apartment.Price.ToString() == PriceTextBox.Text
-                     && apartment.Square.ToString() == SquareTextBox.Text)
-                    apartment_FindAudit = apartment;
-
-            }
-
-            if (PriceTextBox.Text != "" &&
-                 CountRoomsTextBox.Text != "" &&
-                SquareTextBox.Text == "")
-            {
-                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
-                    && apartment.Price.ToString() == PriceTextBox.Text)
-                    apartment_FindAudit = apartment;
-            }
-
-            if (SquareTextBox.Text != "" &&
-                 CountRoomsTextBox.Text != "" &&
-                PriceTextBox.Text == "")
-            {
-
-                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text
-                    && apartment.Square.ToString() == SquareTextBox.Text)
-                    apartment_FindAudit = apartment;
-
-            }
-
-            if (SquareTextBox.Text != "" &&
-                PriceTextBox.Text == "" &&
-                 CountRoomsTextBox.Text == "")
-            {
-
-                if ( apartment.Square.ToString() == SquareTextBox.Text)
-                    apartment_FindAudit = apartment;
-
-            }
-
-            if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text &&
-                PriceTextBox.Text == " " &&
-                 CountRoomsTextBox.Text == " ")
-            {
-
-                if (apartment.CountRooms.ToString() == CountRoomsTextBox.Text)
-                    apartment_FindAudit = apartment;
-
-            }
-
-            if (SquareTextBox.Text != "" &&
-                PriceTextBox.Text == "" &&
-                 CountRoomsTextBox.Text == "")
-            {
-
-                if ( apartment.Square.ToString() == SquareTextBox.Text)
-                    apartment_FindAudit = apartment;
-
-            }
-            return apartment_FindAudit;
-        }
-        */
-
         private void Find_Click(object sender, RoutedEventArgs e)
         {
-
+            for (int i = 0; i < Rezerv_apartments.Count; i++)
+            {
+                apartments.Add(Rezerv_apartments[i]);
+            }
+            ListApartaments.ItemsSource = apartments;
             ObservableCollection<Apartment> apartmentsList = new ObservableCollection<Apartment>();
             for (int i = 0; i < apartments.Count; i++)
             {
-                Apartment apartment_FindClick = new Apartment();
+               
+                Apartment apartment_Find = new Apartment();
                 if (ReservedRadioButton.IsChecked == true &&
                     apartments[i].Reservation == true &&
                     apartments[i].SoldOut == false)
                 {
-                    //apartment_FindClick = Find_Audit(apartments[i]);
-                    apartment_FindClick = apartments[i];
-                    apartmentsList.Add(apartment_FindClick);
+                    apartment_Find = apartments[i];
+                    apartmentsList.Add(apartment_Find);
                 }
                 if (NotBookedRadioButton.IsChecked == true &&
                         apartments[i].Reservation == false &&
                         apartments[i].SoldOut == false)
                 {
-                    //apartment_FindClick = Find_Audit(apartments[i]);
-                    apartment_FindClick = apartments[i];
+                    apartment_Find = apartments[i];
                     apartmentsList.Add(apartments[i]);
                 }
                 if (BoughtRadioButton.IsChecked == true &&
                         apartments[i].SoldOut == true)
                 {
-                    //apartment_FindClick = Find_Audit(apartments[i]);
-                    apartment_FindClick = apartments[i];
+                    apartment_Find = apartments[i];
                     apartmentsList.Add(apartments[i]);
                 }
-            }    
+            }
+            apartments.Clear();
+            apartments = apartmentsList;
             if (AllRadioButton.IsChecked == true)
+            {
+                for (int i = 0; i < Rezerv_apartments.Count; i++)
+                {
+                    apartments.Add(Rezerv_apartments[i]);
+                }
                 ListApartaments.ItemsSource = apartments;
+            }
             else
                 ListApartaments.ItemsSource = apartmentsList;
         }

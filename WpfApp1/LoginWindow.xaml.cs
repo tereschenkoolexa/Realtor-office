@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using _Class;
 
 namespace WpfApp1
 {
@@ -73,17 +74,5 @@ namespace WpfApp1
     }
 
 
-    public class User
-    {
-        
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Code { get; set; }
-    }
-
-    public class Admin : User { }
-
-    public class Realtor : User { }
-
-    public class Shopper : User { }
+    
 }
