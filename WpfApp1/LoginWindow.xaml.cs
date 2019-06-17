@@ -22,23 +22,20 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
+
         private void LoginTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             LoginTextBox.Clear();
-
         }
 
         private void PasswordTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             PasswordTextBox.Clear();
-
         }
 
         List<User> Users = new List<User> { new Admin() { Login = "Admin", Password = "K3K4",Code="0"},
-                                            new Realtor() { Login = "Realtor Vadim", Password = "11R5",Code="V1"},
-                                            new Realtor() { Login = "Realtor Ivan", Password = "6H70",Code="I1"},
+                                            new Realtor() { Login = "Realtor Vadim", Password = "11R5",Code="1"},
+                                            new Realtor() { Login = "Realtor Ivan", Password = "6H70",Code="1"},
                                             new Shopper() { Login = "Denis Veremuch", Password = "17B8",Code="C60O" },
                                             new Shopper() { Login = "Vitaliu Peleh", Password = "0LI0",Code="ROWQ"},
                                             new Shopper() { Login = "Oleh Knyaz", Password = "42RT",Code="F4W1"}};
@@ -60,7 +57,8 @@ namespace WpfApp1
                     MessageBox.Show($"The password is invalid");
                     break;
                 }
-                if (i == Users.Count - 1 && Users[i].Login != LoginTextBox.Text && Users[i].Password != PasswordTextBox.Text)
+                if (i == Users.Count - 1 && Users[i].Login != LoginTextBox.Text
+                    && Users[i].Password != PasswordTextBox.Text)
                 {
                     MessageBox.Show($"This user does not exist");
                     break;
@@ -71,10 +69,7 @@ namespace WpfApp1
                     break;
                 }
             }
-
-
         }
-
     }
 
 

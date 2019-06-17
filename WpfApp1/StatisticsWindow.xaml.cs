@@ -15,17 +15,15 @@ using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Interaction logic for Window2.xaml
-    /// </summary>
+
     public partial class StatisticsWindow : Window
     {
         public StatisticsWindow(ObservableCollection<Apartment> apartments)
         {
             InitializeComponent();
 
-            int room_1 =0, room_2 = 0, room_3 = 0, room_4_and_more = 0;
-            decimal p_500K = 0, p500K_2KK = 0, p2KK_4KK = 0, p4KK = 0;
+            int one_room =0, two_room = 0, three_rooms = 0, four_rooms_and_more = 0;
+            decimal up_to_500k = 0, from_500k_to_2kk = 0, from_2kk_to_4kk = 0, more_than_4kk = 0;
             decimal sum = 0;
 
             for(int i=0;i<apartments.Count;i++)
@@ -33,36 +31,36 @@ namespace WpfApp1
                 if (apartments[i].SoldOut == true)
                 {
                     if (apartments[i].CountRooms == 1)
-                        room_1++;
+                        one_room++;
                     if (apartments[i].CountRooms == 2)
-                        room_2++;
+                        two_room++;
                     if (apartments[i].CountRooms == 3)
-                        room_3++;
+                        three_rooms++;
                     if (apartments[i].CountRooms >= 4)
-                        room_4_and_more++;
+                        four_rooms_and_more++;
 
                     if (apartments[i].Price < 500000)
-                        p_500K++;
+                        up_to_500k++;
                     if (apartments[i].Price > 500000 && apartments[i].Price < 2000000)
-                        p500K_2KK++;
+                        from_500k_to_2kk++;
                     if (apartments[i].Price > 2000000 && apartments[i].Price < 4000000)
-                        p2KK_4KK++;
+                        from_2kk_to_4kk++;
                     if (apartments[i].Price > 4000000)
-                        p4KK++;
+                        more_than_4kk++;
 
                     sum += apartments[i].Price;
                 }
             }
 
-            TextBlockRoom1.Text = room_1.ToString();
-            TextBlockRoom2.Text = room_2.ToString();
-            TextBlockRoom3.Text = room_3.ToString();
-            TextBlockRoom4.Text = room_4_and_more.ToString();
+            TextBlockRoom1.Text = one_room.ToString();
+            TextBlockRoom2.Text = two_room.ToString();
+            TextBlockRoom3.Text = three_rooms.ToString();
+            TextBlockRoom4.Text = four_rooms_and_more.ToString();
 
-            TextBlockP500.Text = p_500K.ToString();
-            TextBlockP500_2.Text = p500K_2KK.ToString();
-            TextBlockP2_4.Text = p2KK_4KK.ToString();
-            TextBlockP4.Text = p4KK.ToString();
+            TextBlockP500.Text = up_to_500k.ToString();
+            TextBlockP500_2.Text = from_500k_to_2kk.ToString();
+            TextBlockP2_4.Text = from_2kk_to_4kk.ToString();
+            TextBlockP4.Text = more_than_4kk.ToString();
 
             TotalSum.Text = sum.ToString();
 
